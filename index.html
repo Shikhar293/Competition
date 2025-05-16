@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Fitness Zone Competition Banner with Registration and Organizers</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,400;1,400;0,700&display=swap');
+
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 0 80px;
+    overflow-x: hidden;
+  }
+  /* Background abstract shapes */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -150px;
+    left: -150px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle at center, rgba(255 111 97 / 0.35), transparent 70%);
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    bottom: -180px;
+    right: -180px;
+    width: 500px;
+    height: 500px;
+    background: conic-gradient(from 90deg at 50% 50%, #ff6f61, #ff2a2a 60%, #d23430);
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.6;
+    z-index: 0;
+  }
+  .banner {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    background: linear-gradient(135deg, #ff2a2a 0%, #ff6f61 45%, #f77c6b 100%);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(255, 111, 97, 0.85);
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    padding: 30px 50px;
+    z-index: 1;
+  }
+  .banner::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    border-radius: 18px;
+    background: linear-gradient(120deg, rgba(255 255 255 / 0.12), rgba(255 255 255 / 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .left-section {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+  }
+  .title-big {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.8rem;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-shadow:
+      0 0 4px rgba(0,0,0,0.75),
+      0 0 12px rgba(255, 255, 255, 0.6);
+  }
+  .subtitle {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff4e3;
+    text-shadow: 0 0 4px rgba(255 111 97, 0.7);
+  }
+  .gym-name {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #fff8d0;
+    margin-top: 18px;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+  }
+  /* Organizer names style */
+  .organizers {
+    margin-top: 10px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #ffe7c9;
+    text-shadow: 0 0 4px rgba(0,0,0,0.6);
+    letter-spacing: 0.7px;
+    max-width: 320px;
+    user-select: none;
+  }
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    position: relative;
+    z-index: 2;
+  }
+  /* Icon base styles + gradient stroke */
+  .icon {
+    width: 140px;
+    height: 140px;
+    stroke-width: 4;
+    fill: none;
+    stroke-linejoin: round;
+  }
+  /* Gradient stroke definitions */
+  svg defs linearGradient stop {
+    transition: stop-color 0.3s;
+  }
+  /* Deadlift icon gradient stroke */
+  #deadlift-grad stop:nth-child(1) {
+    stop-color: #fff0de;
+  }
+  #deadlift-grad stop:nth-child(2) {
+    stop-color: #ff4737;
+  }
+  /* Bench press icon gradient stroke */
+  #benchpress-grad stop:nth-child(1) {
+    stop-color: #fff3a3;
+  }
+  #benchpress-grad stop:nth-child(2) {
+    stop-color: #ff3f32;
+  }
+  /* Drop shadows and glow */
+  .icon-glow {
+    filter: drop-shadow(0 0 8px #ff6f61);
+    transition: filter 0.3s ease;
+    cursor: default;
+  }
+  .banner:hover .icon-glow {
+    filter: drop-shadow(0 0 22px #fff9ea);
+  }
+  /* Entry fee sticker */
+  .entry-fee-sticker {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+    background: linear-gradient(45deg, #fff8d0, #ffb199);
+    color: #bb2a17;
+    font-weight: 800;
+    font-family: 'Anton', sans-serif;
+    padding: 12px 26px;
+    border-radius: 60px;
+    box-shadow:
+      0 6px 12px rgba(255, 111, 97, 0.85),
+      inset 0 -2px 8px rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    user-select: none;
+    text-align: center;
+    z-index: 3;
+    user-select: none;
+  }
+  /* Footer with address */
+  footer.address-footer {
+    margin-top: 30px;
+    background: linear-gradient(135deg, #ff3e2a, #bb1e12);
+    width: 100%;
+    max-width: 900px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 8px 30px rgba(255, 111, 97, 0.85);
+    padding: 14px 50px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    color: #fff8d0;
+    text-align: center;
+    letter-spacing: 1.5px;
+    user-select: none;
+    z-index: 2;
+  }
+
+  /* Registration button - blue */
+  .register-btn {
+    display: inline-block;
+    margin: 30px auto 12px;
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #0077ff, #3399ff);
+    color: #fff;
+    font-weight: 700;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    border-radius: 50px;
+    box-shadow: 0 6px 14px rgba(51, 153, 255, 0.9);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+    border: none;
+  }
+  .register-btn:hover {
+    background: linear-gradient(135deg, #3399ff, #0077ff);
+  }
+  /* Registration form container */
+  .registration-form {
+    width: 100%;
+    max-width: 900px;
+    background: linear-gradient(135deg, #ff6f61dd, #ff2a2acc);
+    padding: 30px 40px 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(255, 111, 97, 0.9);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    z-index: 2;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.6s ease;
+    pointer-events: none;
+    margin-bottom: 20px;
+  }
+  .registration-form.visible {
+    max-height: 700px; /* enough for form */
+    opacity: 1;
+    pointer-events: auto;
+    margin-bottom: 40px;
+  }
+  .registration-form h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 24px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.85);
+  }
+  .registration-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    letter-spacing: 0.7px;
+  }
+  .registration-form input,
+  .registration-form select {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+    appearance: none;
+    background: rgba(255 255 255 / 0.15);
+    color: #fff;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+  }
+  .registration-form input::placeholder {
+    color: #fbd3b6;
+    opacity: 0.8;
+  }
+  .registration-form input:focus,
+  .registration-form select:focus {
+    background: rgba(255 255 255 / 0.35);
+    box-shadow: 0 0 10px #ff6f61;
+    color: #fff;
+  }
+  .registration-form select {
+    cursor: pointer;
+  }
+  .registration-form .submit-btn {
+    background: linear-gradient(135deg, #fff8d0, #ffb199);
+    color: #bb2a17;
+    font-weight: 800;
+    font-family: 'Anton', sans-serif;
+    padding: 14px 30px;
+    border-radius: 60px;
+    box-shadow:
+      0 6px 14px rgba(255, 111, 97, 0.9),
+      inset 0 -2px 8px rgba(255, 255, 255, 0.9);
+    font-size: 1.25rem;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  .registration-form .submit-btn:hover {
+    background: linear-gradient(135deg, #ffb199, #fff8d0);
+  }
+  /* Confirmation message */
+  .confirmation-message {
+    text-align: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.4rem;
+    color: #fff8d0;
+    margin-top: 15px;
+    padding: 16px 20px;
+    background: rgba(255, 111, 97, 0.85);
+    border-radius: 20px;
+    box-shadow: 0 6px 16px rgba(255, 111, 97, 0.55);
+    display: none;
+    user-select: none;
+  }
+  
+  @media (max-width: 650px) {
+    .banner {
+      flex-direction: column;
+      padding: 25px 25px;
+    }
+    .right-section {
+      margin-top: 30px;
+      gap: 40px;
+    }
+    .title-big {
+      font-size: 3rem;
+      letter-spacing: 3.5px;
+      text-align: center;
+    }
+    .gym-name, .organizers {
+      text-align: center;
+      max-width: 100%;
+    }
+    .entry-fee-sticker {
+      top: 14px;
+      right: 14px;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+    }
+    footer.address-footer {
+      padding: 12px 30px;
+      font-size: 1rem;
+      border-radius: 0 0 15px 15px;
+    }
+    .register-btn {
+      width: 90%;
+      font-size: 1.2rem;
+      padding: 14px 0;
+    }
+    .registration-form {
+      padding: 30px 25px 40px;
+      max-width: 90%;
+    }
+  }
+</style>
+</head>
+<body>
+  <section class="banner" role="banner" aria-label="Fitness Zone Deadlift and Bench Press Competition">
+    <div class="left-section">
+      <div class="subtitle">Deadlift &amp; Bench Press</div>
+      <h1 class="title-big">Competition</h1>
+      <div class="gym-name">The Fitness Zone</div>
+      <div class="organizers" aria-label="Organizers">
+        Organized by Sachin Sharma And Vikas Kumar
+      </div>
+    </div>
+    <div class="right-section" aria-hidden="true">
+      <svg class="icon icon-glow deadlift-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="Deadlift barbell icon" role="img">
+        <defs>
+          <linearGradient id="deadlift-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fff0de"/>
+            <stop offset="100%" stop-color="#ff4737"/>
+          </linearGradient>
+        </defs>
+        <rect x="10" y="28" width="44" height="8" stroke="url(#deadlift-grad)" />
+        <rect x="4" y="22" width="6" height="20" stroke="url(#deadlift-grad)" fill="none" />
+        <rect x="54" y="22" width="6" height="20" stroke="url(#deadlift-grad)" fill="none" />
+        <rect x="2" y="18" width="10" height="28" stroke="url(#deadlift-grad)" fill="none" />
+        <rect x="52" y="18" width="10" height="28" stroke="url(#deadlift-grad)" fill="none" />
+      </svg>
+      <svg class="icon icon-glow benchpress-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="Bench press icon" role="img">
+        <defs>
+          <linearGradient id="benchpress-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fff3a3"/>
+            <stop offset="100%" stop-color="#ff3f32"/>
+          </linearGradient>
+        </defs>
+        <rect x="12" y="30" width="40" height="6" stroke="url(#benchpress-grad)" />
+        <rect x="6" y="26" width="8" height="12" stroke="url(#benchpress-grad)" fill="none" />
+        <rect x="50" y="26" width="8" height="12" stroke="url(#benchpress-grad)" fill="none" />
+        <rect x="22" y="38" width="20" height="8" stroke="url(#benchpress-grad)" fill="none" />
+      </svg>
+    </div>
+    <div class="entry-fee-sticker" aria-label="Entry fee 200 rupees">
+      Entry Fee: ₹200
+    </div>
+  </section>
+
+  <!-- Register button -->
+  <button id="registerBtn" class="register-btn" aria-haspopup="dialog" aria-controls="registrationForm">
+    Register Now
+  </button>
+
+  <!-- Registration form container -->
+  <section id="registrationForm" class="registration-form" role="dialog" aria-modal="true" aria-labelledby="formTitle" tabindex="-1">
+    <h2 id="formTitle">Competition Registration</h2>
+    <form id="compForm" novalidate>
+      <label for="fullName">Full Name *</label>
+      <input type="text" id="fullName" name="fullName" placeholder="Your full name" required autocomplete="name" />
+
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" placeholder="example@example.com" required autocomplete="email" />
+
+      <label for="phone">Phone Number *</label>
+      <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" pattern="[\+0-9\s\-]{10,15}" required autocomplete="tel" />
+
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" min="12" max="100" placeholder="Your age (optional)" />
+
+      <label for="weight">Weight (kg) *</label>
+      <input type="number" id="weight" name="weight" min="30" max="300" placeholder="Your weight in kilograms" required />
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" aria-label="Gender (optional)">
+        <option value="" selected disabled>Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+        <option value="preferNot">Prefer not to say</option>
+      </select>
+
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    <div id="confirmationMessage" class="confirmation-message" role="alert" aria-live="assertive">
+      Thank you for registering! We'll contact you soon.
+    </div>
+  </section>
+
+  <footer class="address-footer" role="contentinfo">
+    Near Bullet Agency, Bareilly Highway Yaqoobpur chaurah jalalabad
+  </footer>
+
+<script>
+  const registerBtn = document.getElementById('registerBtn');
+  const formSection = document.getElementById('registrationForm');
+  const compForm = document.getElementById('compForm');
+  const confirmationMessage = document.getElementById('confirmationMessage');
+
+  registerBtn.addEventListener('click', () => {
+    if (!formSection.classList.contains('visible')) {
+      formSection.classList.add('visible');
+      formSection.focus();
+      confirmationMessage.style.display = 'none';
+      compForm.style.display = 'block';
+    } else {
+      formSection.classList.remove('visible');
+      confirmationMessage.style.display = 'none';
+      compForm.style.display = 'block';
+    }
+  });
+
+  compForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (!compForm.checkValidity()) {
+      compForm.reportValidity();
+      return;
+    }
+
+    // Hide form and show confirmation message
+    compForm.style.display = 'none';
+    confirmationMessage.style.display = 'block';
+
+    // Optionally reset form after submit
+    compForm.reset();
+
+    // Set focus for accessibility
+    confirmationMessage.focus();
+  });
+</script>
+</body>
+</html>
+
